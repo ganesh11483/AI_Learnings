@@ -28,10 +28,14 @@ export default function Patients() {
     queryFn: () => patientAPI.list().then(res => res.data),
   })
 
-  const { data: diseaseCodes } = useQuery({
+  const { data: diseaseCodes, isLoading: diseaseCodesLoading, error: diseaseCodesError } = useQuery({
     queryKey: ['disease-codes'],
     queryFn: () => patientAPI.getDiseaseCodes().then(res => res.data),
   })
+
+  // Debug: log disease codes data
+  console.log('Disease codes data:', diseaseCodes)
+  console.log('Disease codes error:', diseaseCodesError)
 
   const createMutation = useMutation({
     mutationFn: (data) => patientAPI.create(data),
@@ -209,11 +213,14 @@ export default function Patients() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Disease Code</label>
+              {diseaseCodesLoading && <p className="text-sm text-gray-500">Loading disease codes...</p>}
+              {diseaseCodesError && <p className="text-sm text-red-500">Error loading disease codes: {diseaseCodesError.message}</p>}
               <select
                 name="disease_code"
                 value={formData.disease_code}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                disabled={diseaseCodesLoading}
               >
                 <option value="">Select Disease Code</option>
                 {diseaseCodes?.map((dc) => (
@@ -222,6 +229,9 @@ export default function Patients() {
                   </option>
                 ))}
               </select>
+              {!diseaseCodesLoading && !diseaseCodesError && diseaseCodes?.length === 0 && (
+                <p className="text-sm text-yellow-500 mt-1">No disease codes available</p>
+              )}
             </div>
 
             <div className="md:col-span-2 mt-4 flex justify-end space-x-3">
