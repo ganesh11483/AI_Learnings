@@ -7,7 +7,8 @@ import {
   PieChart,
   BarChart3,
   CreditCard,
-  AlertCircle
+  AlertCircle,
+  Clock
 } from 'lucide-react'
 import Card from '../components/Card'
 
@@ -307,12 +308,12 @@ export default function RevenueFinancialDashboard() {
             <p className="text-2xl font-bold text-green-600">+12.5%</p>
           </div>
           <div className="bg-blue-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Collection Rate</p>
-            <p className="text-2xl font-bold text-blue-600">{avgCollectionRate.toFixed(1)}%</p>
+            <p className="text-sm text-gray-600">Recovery Rate</p>
+            <p className="text-2xl font-bold text-blue-600">{avgRecoveryRate.toFixed(1)}%</p>
           </div>
           <div className="bg-purple-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Denial Rate</p>
-            <p className="text-2xl font-bold text-purple-600">{avgDenialRate.toFixed(1)}%</p>
+            <p className="text-sm text-gray-600">Denial Loss %</p>
+            <p className="text-2xl font-bold text-purple-600">{avgDenialLossPercentage.toFixed(1)}%</p>
           </div>
           <div className="bg-orange-50 p-4 rounded-lg">
             <p className="text-sm text-gray-600">Pending Days</p>
