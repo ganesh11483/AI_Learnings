@@ -9,6 +9,11 @@ import ClaimDetails from './pages/ClaimDetails'
 import Patients from './pages/Patients'
 import Audit from './pages/Audit'
 import Settings from './pages/Settings'
+import ClaimsProcessingDashboard from './pages/ClaimsProcessingDashboard'
+import AIAutomationDashboard from './pages/AIAutomationDashboard'
+import RevenueFinancialDashboard from './pages/RevenueFinancialDashboard'
+import ComplianceAuditDashboard from './pages/ComplianceAuditDashboard'
+import OperationalEfficiencyDashboard from './pages/OperationalEfficiencyDashboard'
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth()
@@ -37,6 +42,11 @@ function App() {
         <Route path="patients" element={<Patients />} />
         <Route path="audit" element={<Audit />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="metrics/claims-processing" element={<ClaimsProcessingDashboard />} />
+        <Route path="metrics/ai-automation" element={<AIAutomationDashboard />} />
+        <Route path="metrics/revenue-financial" element={<RevenueFinancialDashboard />} />
+        <Route path="metrics/compliance-audit" element={<ComplianceAuditDashboard />} />
+        <Route path="metrics/operational-efficiency" element={<OperationalEfficiencyDashboard />} />
       </Route>
     </Routes>
   )

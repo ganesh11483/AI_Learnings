@@ -13,6 +13,7 @@ import app.models.medical_code
 import app.models.embedding
 import app.models.audit_log
 import app.models.claim
+import app.models.metrics
 
 # Create database tables
 Base.metadata.create_all(bind=engine)

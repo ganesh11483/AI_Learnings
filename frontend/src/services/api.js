@@ -86,4 +86,15 @@ export const claimAPI = {
   list: () => api.get('/claims/'),
 }
 
+export const metricsAPI = {
+  calculateAll: (date) => api.post('/metrics/calculate/all', null, { params: { date } }),
+  getClaimsProcessing: (days = 30) => api.get('/metrics/claims-processing', { params: { days } }),
+  getAIAutomation: (days = 30) => api.get('/metrics/ai-automation', { params: { days } }),
+  getRevenueFinancial: (days = 30) => api.get('/metrics/revenue-financial', { params: { days } }),
+  getComplianceAudit: (days = 30) => api.get('/metrics/compliance-audit', { params: { days } }),
+  getOperationalEfficiency: (days = 30) => api.get('/metrics/operational-efficiency', { params: { days } }),
+  getAggregate: (startDate, endDate) => api.get('/metrics/aggregate', { params: { start_date: startDate, end_date: endDate } }),
+  getDashboardSummary: () => api.get('/metrics/dashboard-summary'),
+}
+
 export default api

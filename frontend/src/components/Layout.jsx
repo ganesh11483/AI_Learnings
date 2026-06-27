@@ -7,7 +7,12 @@ import {
   Users, 
   Settings as SettingsIcon, 
   LogOut,
-  Activity
+  Activity,
+  BarChart3,
+  Bot,
+  DollarSign,
+  Shield,
+  Clock
 } from 'lucide-react'
 
 export default function Layout() {
@@ -21,6 +26,11 @@ export default function Layout() {
     { name: 'Patients', href: '/patients', icon: Users },
     { name: 'Audit Logs', href: '/audit', icon: Activity },
     { name: 'Settings', href: '/settings', icon: SettingsIcon },
+    { name: 'Claims Metrics', href: '/metrics/claims-processing', icon: BarChart3 },
+    { name: 'AI Automation', href: '/metrics/ai-automation', icon: Bot },
+    { name: 'Revenue', href: '/metrics/revenue-financial', icon: DollarSign },
+    { name: 'Compliance', href: '/metrics/compliance-audit', icon: Shield },
+    { name: 'Efficiency', href: '/metrics/operational-efficiency', icon: Clock },
   ]
 
   return (
