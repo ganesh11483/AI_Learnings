@@ -61,7 +61,7 @@ export default function Patients() {
   }
 
   const filteredPatients = patients?.filter(patient =>
-    `${patient.first_name} ${patient.last_name} ${patient.patient_id}`
+    `${patient.first_name} ${patient.last_name} ${patient.patient_id} ${patient.disease_code || ''}`
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   )
@@ -266,10 +266,13 @@ export default function Patients() {
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">ID: {patient.patient_id}</p>
 
               {patient.disease_code && (
-                <div className="mb-3">
+                <div className="mb-3 space-y-1">
                   <span className="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded">
                     Code: {patient.disease_code}
                   </span>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {DISEASE_CODES.find(dc => dc.code === patient.disease_code)?.description || ''}
+                  </p>
                 </div>
               )}
 
