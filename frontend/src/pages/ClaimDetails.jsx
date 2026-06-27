@@ -112,83 +112,83 @@ export default function ClaimDetails() {
     },
   })
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>
-  if (error) return <div className="text-red-600">Failed to load claim</div>
-  if (!claim) return <div className="text-gray-600">Claim not found.</div>
+  if (isLoading) return <div className="min-h-screen flex items-center justify-center dark:text-white">Loading...</div>
+  if (error) return <div className="text-red-600 dark:text-red-400">Failed to load claim</div>
+  if (!claim) return <div className="text-gray-600 dark:text-gray-400">Claim not found.</div>
 
   const normalizedStatus = String(claim.status || '').toLowerCase()
 
   return (
     <div className="space-y-6">
       {actionError && (
-        <div className="rounded-md bg-red-50 p-4 border border-red-200">
-          <p className="text-sm font-medium text-red-800">Error</p>
-          <p className="text-sm text-red-700 mt-1">{actionError}</p>
+        <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4 border border-red-200 dark:border-red-700">
+          <p className="text-sm font-medium text-red-800 dark:text-red-300">Error</p>
+          <p className="text-sm text-red-700 dark:text-red-400 mt-1">{actionError}</p>
         </div>
       )}
       
       {actionSuccess && (
-        <div className="rounded-md bg-green-50 p-4 border border-green-200">
-          <p className="text-sm font-medium text-green-800">Success</p>
-          <p className="text-sm text-green-700 mt-1">{actionSuccess}</p>
+        <div className="rounded-md bg-green-50 dark:bg-green-900/20 p-4 border border-green-200 dark:border-green-700">
+          <p className="text-sm font-medium text-green-800 dark:text-green-300">Success</p>
+          <p className="text-sm text-green-700 dark:text-green-400 mt-1">{actionSuccess}</p>
         </div>
       )}
 
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-gray-900">
+          <button onClick={() => navigate(-1)} className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
             <ChevronLeft className="w-5 h-5" />
           </button>
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">Claim {claim.claim_number}</h2>
-            <p className="text-gray-600 text-sm">{claim.insurance_provider} • Policy {claim.policy_number}</p>
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Claim {claim.claim_number}</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{claim.insurance_provider} • Policy {claim.policy_number}</p>
           </div>
         </div>
         <StatusBadge status={claim.status} />
       </div>
 
       <Card>
-        <h3 className="text-lg font-semibold mb-3">Claim Summary</h3>
+        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Claim Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-gray-600">Patient</p>
-            <p className="font-medium">{claim.patient?.first_name} {claim.patient?.last_name}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Patient</p>
+            <p className="font-medium text-gray-900 dark:text-white">{claim.patient?.first_name} {claim.patient?.last_name}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Total Amount</p>
-            <p className="font-medium">${(claim.total_amount || 0).toFixed(2)}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Total Amount</p>
+            <p className="font-medium text-gray-900 dark:text-white">${(claim.total_amount || 0).toFixed(2)}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Created At</p>
-            <p className="font-medium">{new Date(claim.created_at).toLocaleString()}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Created At</p>
+            <p className="font-medium text-gray-900 dark:text-white">{new Date(claim.created_at).toLocaleString()}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Status</p>
-            <p className="font-medium capitalize">{String(claim.status || '').toLowerCase()}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Status</p>
+            <p className="font-medium capitalize text-gray-900 dark:text-white">{String(claim.status || '').toLowerCase()}</p>
           </div>
           {claim.rendering_provider_npi && (
             <div>
-              <p className="text-sm text-gray-600">Rendering Provider NPI</p>
-              <p className="font-medium">{claim.rendering_provider_npi}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Rendering Provider NPI</p>
+              <p className="font-medium text-gray-900 dark:text-white">{claim.rendering_provider_npi}</p>
             </div>
           )}
           {claim.place_of_service && (
             <div>
-              <p className="text-sm text-gray-600">Place of Service</p>
-              <p className="font-medium">{claim.place_of_service} {claim.place_of_service === "11" && "(Office)"}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Place of Service</p>
+              <p className="font-medium text-gray-900 dark:text-white">{claim.place_of_service} {claim.place_of_service === "11" && "(Office)"}</p>
             </div>
           )}
           {claim.rejection_reason && (
             <div className="md:col-span-2">
-              <p className="text-sm text-gray-600">Rejection Reason</p>
-              <p className="font-medium text-red-700">{claim.rejection_reason}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Rejection Reason</p>
+              <p className="font-medium text-red-700 dark:text-red-400">{claim.rejection_reason}</p>
             </div>
           )}
         </div>
       </Card>
 
       <Card>
-        <h3 className="text-lg font-semibold mb-4">Validations</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Validations</h3>
         {claim.validations?.length > 0 ? (
           <div className="space-y-4">
             {(() => {
@@ -200,11 +200,11 @@ export default function ClaimDetails() {
               }, {})
               
               const categoryConfig = {
-                documentation: { title: '📄 Documentation', color: 'bg-blue-50 border-blue-200 text-blue-800', badgeColor: 'bg-blue-200' },
-                coding: { title: '💻 Coding Issues', color: 'bg-orange-50 border-orange-200 text-orange-800', badgeColor: 'bg-orange-200' },
-                medical_necessity: { title: '🏥 Medical Necessity', color: 'bg-red-50 border-red-200 text-red-800', badgeColor: 'bg-red-200' },
-                compliance: { title: '⚖️ Compliance', color: 'bg-purple-50 border-purple-200 text-purple-800', badgeColor: 'bg-purple-200' },
-                general: { title: '⚠️ Other Issues', color: 'bg-yellow-50 border-yellow-200 text-yellow-800', badgeColor: 'bg-yellow-200' }
+                documentation: { title: '📄 Documentation', color: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 text-blue-800 dark:text-blue-300', badgeColor: 'bg-blue-200 dark:bg-blue-800' },
+                coding: { title: '💻 Coding Issues', color: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-700 text-orange-800 dark:text-orange-300', badgeColor: 'bg-orange-200 dark:bg-orange-800' },
+                medical_necessity: { title: '🏥 Medical Necessity', color: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700 text-red-800 dark:text-red-300', badgeColor: 'bg-red-200 dark:bg-red-800' },
+                compliance: { title: '⚖️ Compliance', color: 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-300', badgeColor: 'bg-purple-200 dark:bg-purple-800' },
+                general: { title: '⚠️ Other Issues', color: 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-700 text-yellow-800 dark:text-yellow-300', badgeColor: 'bg-yellow-200 dark:bg-yellow-800' }
               }
               
               return Object.entries(grouped).map(([category, issues]) => {
@@ -228,7 +228,7 @@ export default function ClaimDetails() {
             })()}
           </div>
         ) : (
-          <div className="p-4 rounded-lg bg-green-50 border border-green-200 text-green-800">
+          <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 text-green-800 dark:text-green-300">
             <p className="font-medium">✓ All validations passed</p>
             <p className="text-sm mt-1">This claim is ready for submission.</p>
           </div>
@@ -236,48 +236,48 @@ export default function ClaimDetails() {
       </Card>
 
       <Card>
-        <h3 className="text-lg font-semibold mb-3">Claim Items</h3>
+        <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Claim Items</h3>
         {claim.claim_items?.length > 0 ? (
           <div className="space-y-3">
             {claim.claim_items.map((item) => (
-              <div key={item.id} className="p-4 border border-gray-200 rounded-lg bg-gray-50">
+              <div key={item.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                   <div>
-                    <p className="text-sm text-gray-600">Description</p>
-                    <p className="font-medium">{item.description || item.code || 'Line Item'}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Description</p>
+                    <p className="font-medium text-gray-900 dark:text-white">{item.description || item.code || 'Line Item'}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Amount</p>
-                    <p className="font-medium text-lg">${(item.amount || 0).toFixed(2)}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Amount</p>
+                    <p className="font-medium text-lg text-gray-900 dark:text-white">${(item.amount || 0).toFixed(2)}</p>
                   </div>
                   {item.procedure_code && (
                     <div>
-                      <p className="text-sm text-gray-600">Procedure Code (CPT/HCPCS)</p>
-                      <p className="font-medium">{item.procedure_code}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Procedure Code (CPT/HCPCS)</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{item.procedure_code}</p>
                     </div>
                   )}
                   {item.diagnosis_code && (
                     <div>
-                      <p className="text-sm text-gray-600">Diagnosis Code (ICD-10)</p>
-                      <p className="font-medium">{item.diagnosis_code}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Diagnosis Code (ICD-10)</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{item.diagnosis_code}</p>
                     </div>
                   )}
                   {item.service_date_start && (
                     <div>
-                      <p className="text-sm text-gray-600">Service Date</p>
-                      <p className="font-medium">{new Date(item.service_date_start).toLocaleDateString()} {item.service_date_end && item.service_date_end !== item.service_date_start ? `- ${new Date(item.service_date_end).toLocaleDateString()}` : ''}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Service Date</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{new Date(item.service_date_start).toLocaleDateString()} {item.service_date_end && item.service_date_end !== item.service_date_start ? `- ${new Date(item.service_date_end).toLocaleDateString()}` : ''}</p>
                     </div>
                   )}
                   {item.units && (
                     <div>
-                      <p className="text-sm text-gray-600">Units</p>
-                      <p className="font-medium">{item.quantity || 1} {item.units}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Units</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{item.quantity || 1} {item.units}</p>
                     </div>
                   )}
                   {!item.units && (
                     <div>
-                      <p className="text-sm text-gray-600">Quantity</p>
-                      <p className="font-medium">{item.quantity || 1}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Quantity</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{item.quantity || 1}</p>
                     </div>
                   )}
                 </div>
@@ -285,7 +285,7 @@ export default function ClaimDetails() {
             ))}
           </div>
         ) : (
-          <p className="text-gray-600">No items added to this claim.</p>
+          <p className="text-gray-600 dark:text-gray-400">No items added to this claim.</p>
         )}
       </Card>
 
@@ -294,7 +294,7 @@ export default function ClaimDetails() {
           <>
             <button
               onClick={() => validateMutation.mutate(claim.id)}
-              className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50"
+              className="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               {validateMutation.isLoading ? 'Validating...' : 'Validate'}
             </button>
@@ -310,7 +310,7 @@ export default function ClaimDetails() {
           <>
             <button
               onClick={() => setShowRejectModal(true)}
-              className="bg-white text-red-700 border border-red-300 px-4 py-2 rounded-md hover:bg-red-50"
+              className="bg-white dark:bg-gray-700 text-red-700 dark:text-red-400 border border-red-300 dark:border-red-600 px-4 py-2 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20"
             >
               {rejectMutation.isLoading ? 'Rejecting...' : 'Reject'}
             </button>
@@ -325,15 +325,15 @@ export default function ClaimDetails() {
       </div>
 
       {showRejectModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50">
           <Card className="w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Reject Claim</h3>
-            <p className="text-gray-600 mb-4">Please provide a reason for rejecting this claim.</p>
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Reject Claim</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">Please provide a reason for rejecting this claim.</p>
             <textarea
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
               placeholder="Enter rejection reason..."
-              className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-primary-500"
               rows="4"
             />
             <div className="flex justify-end space-x-3">
@@ -342,7 +342,7 @@ export default function ClaimDetails() {
                   setShowRejectModal(false)
                   setRejectionReason('')
                 }}
-                className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
               >
                 Cancel
               </button>

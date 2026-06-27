@@ -25,7 +25,7 @@ export default function ClaimsProcessingDashboard() {
   })
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    return <div className="min-h-screen flex items-center justify-center dark:text-white">Loading...</div>
   }
 
   const latestMetrics = summary?.latest_metrics?.claims_processing
@@ -51,8 +51,8 @@ export default function ClaimsProcessingDashboard() {
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg p-6 text-white">
-        <h1 className="text-3xl font-bold">Claims Processing Dashboard</h1>
-        <p className="text-blue-100 mt-2">Monitor claims processing performance and metrics</p>
+        <h1 className="text-3xl font-bold dark:text-white">Claims Processing Dashboard</h1>
+        <p className="text-blue-100 dark:text-blue-200 mt-2">Monitor claims processing performance and metrics</p>
       </div>
 
       {/* Key Metrics */}
@@ -60,9 +60,9 @@ export default function ClaimsProcessingDashboard() {
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Claims</p>
-              <p className="text-3xl font-bold text-gray-900 mt-2">{totalProcessed}</p>
-              <p className="text-sm text-gray-500 mt-1">Last 30 days</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Claims</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{totalProcessed}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Last 30 days</p>
             </div>
             <div className="bg-blue-500 p-3 rounded-lg">
               <FileText className="w-6 h-6 text-white" />
@@ -73,9 +73,9 @@ export default function ClaimsProcessingDashboard() {
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Approved</p>
-              <p className="text-3xl font-bold text-green-600 mt-2">{totalApproved}</p>
-              <p className="text-sm text-green-600 mt-1">{approvalRate}% approval rate</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Approved</p>
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{totalApproved}</p>
+              <p className="text-sm text-green-600 dark:text-green-400 mt-1">{approvalRate}% approval rate</p>
             </div>
             <div className="bg-green-500 p-3 rounded-lg">
               <CheckCircle className="w-6 h-6 text-white" />
@@ -86,9 +86,9 @@ export default function ClaimsProcessingDashboard() {
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Denied</p>
-              <p className="text-3xl font-bold text-red-600 mt-2">{totalDenied}</p>
-              <p className="text-sm text-red-600 mt-1">{denialRate}% denial rate</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Denied</p>
+              <p className="text-3xl font-bold text-red-600 dark:text-red-400 mt-2">{totalDenied}</p>
+              <p className="text-sm text-red-600 dark:text-red-400 mt-1">{denialRate}% denial rate</p>
             </div>
             <div className="bg-red-500 p-3 rounded-lg">
               <XCircle className="w-6 h-6 text-white" />
@@ -99,9 +99,9 @@ export default function ClaimsProcessingDashboard() {
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Pending</p>
-              <p className="text-3xl font-bold text-yellow-600 mt-2">{totalPending}</p>
-              <p className="text-sm text-yellow-600 mt-1">Awaiting processing</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Pending</p>
+              <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-2">{totalPending}</p>
+              <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-1">Awaiting processing</p>
             </div>
             <div className="bg-yellow-500 p-3 rounded-lg">
               <Clock className="w-6 h-6 text-white" />
@@ -115,9 +115,9 @@ export default function ClaimsProcessingDashboard() {
         <Card>
           <div className="flex items-center mb-4">
             <DollarSign className="w-5 h-5 text-green-500 mr-2" />
-            <h3 className="text-lg font-semibold text-gray-900">Total Claims Value</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Total Claims Value</h3>
           </div>
-          <p className="text-3xl font-bold text-gray-900">${totalValue.toLocaleString()}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">${totalValue.toLocaleString()}</p>
           <div className="flex items-center mt-2 text-sm">
             <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
             <span className="text-green-600">+8.5% from last month</span>
@@ -127,9 +127,9 @@ export default function ClaimsProcessingDashboard() {
         <Card>
           <div className="flex items-center mb-4">
             <Clock className="w-5 h-5 text-blue-500 mr-2" />
-            <h3 className="text-lg font-semibold text-gray-900">Avg Turnaround Time</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Avg Turnaround Time</h3>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{avgTAT.toFixed(1)} hrs</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">{avgTAT.toFixed(1)} hrs</p>
           <div className="flex items-center mt-2 text-sm">
             <TrendingDown className="w-4 h-4 text-green-500 mr-1" />
             <span className="text-green-600">-12% improvement</span>
@@ -139,10 +139,10 @@ export default function ClaimsProcessingDashboard() {
         <Card>
           <div className="flex items-center mb-4">
             <BarChart3 className="w-5 h-5 text-purple-500 mr-2" />
-            <h3 className="text-lg font-semibold text-gray-900">Processing Rate</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Processing Rate</h3>
           </div>
-          <p className="text-3xl font-bold text-gray-900">{(totalProcessed / 30).toFixed(1)}</p>
-          <p className="text-sm text-gray-500 mt-2">claims per day</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">{(totalProcessed / 30).toFixed(1)}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">claims per day</p>
         </Card>
       </div>
 
@@ -150,28 +150,28 @@ export default function ClaimsProcessingDashboard() {
       <Card>
         <div className="flex items-center mb-4">
           <BarChart3 className="w-5 h-5 text-purple-500 mr-2" />
-          <h3 className="text-lg font-semibold text-gray-900">Payer-wise Performance</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Payer-wise Performance</h3>
         </div>
         <div className="space-y-4">
           {Object.entries(payerPerformance).length > 0 ? (
             Object.entries(payerPerformance).map(([payer, data]) => (
-              <div key={payer} className="border rounded-lg p-4">
+              <div key={payer} className="border dark:border-gray-700 rounded-lg p-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-semibold text-gray-900">{payer}</h4>
-                  <span className="text-sm text-gray-500">${data.total_value?.toLocaleString() || 0}</span>
+                  <h4 className="font-semibold text-gray-900 dark:text-white">{payer}</h4>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">${data.total_value?.toLocaleString() || 0}</span>
                 </div>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-500">Approved</p>
-                    <p className="font-semibold text-green-600">{data.approved || 0}</p>
+                    <p className="text-gray-500 dark:text-gray-400">Approved</p>
+                    <p className="font-semibold text-green-600 dark:text-green-400">{data.approved || 0}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Denied</p>
-                    <p className="font-semibold text-red-600">{data.denied || 0}</p>
+                    <p className="text-gray-500 dark:text-gray-400">Denied</p>
+                    <p className="font-semibold text-red-600 dark:text-red-400">{data.denied || 0}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Rate</p>
-                    <p className="font-semibold text-blue-600">
+                    <p className="text-gray-500 dark:text-gray-400">Rate</p>
+                    <p className="font-semibold text-blue-600 dark:text-blue-400">
                       {data.approved + data.denied > 0 
                         ? ((data.approved / (data.approved + data.denied)) * 100).toFixed(1) 
                         : 0}%
@@ -181,7 +181,7 @@ export default function ClaimsProcessingDashboard() {
               </div>
             ))
           ) : (
-            <p className="text-gray-500 text-center py-4">No payer data available</p>
+            <p className="text-gray-500 dark:text-gray-400 text-center py-4">No payer data available</p>
           )}
         </div>
       </Card>
@@ -190,15 +190,15 @@ export default function ClaimsProcessingDashboard() {
       <Card>
         <div className="flex items-center mb-4">
           <Calendar className="w-5 h-5 text-orange-500 mr-2" />
-          <h3 className="text-lg font-semibold text-gray-900">Claims Status Distribution</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Claims Status Distribution</h3>
         </div>
         <div className="space-y-3">
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Approved</span>
-              <span className="text-sm font-medium text-gray-700">{totalApproved} ({approvalRate}%)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Approved</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{totalApproved} ({approvalRate}%)</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div 
                 className="bg-green-500 h-2 rounded-full" 
                 style={{ width: `${approvalRate}%` }}
@@ -207,10 +207,10 @@ export default function ClaimsProcessingDashboard() {
           </div>
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Denied</span>
-              <span className="text-sm font-medium text-gray-700">{totalDenied} ({denialRate}%)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Denied</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{totalDenied} ({denialRate}%)</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div 
                 className="bg-red-500 h-2 rounded-full" 
                 style={{ width: `${denialRate}%` }}
@@ -219,10 +219,10 @@ export default function ClaimsProcessingDashboard() {
           </div>
           <div>
             <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-gray-700">Pending</span>
-              <span className="text-sm font-medium text-gray-700">{totalPending} ({((totalPending / totalProcessed) * 100).toFixed(1)}%)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Pending</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{totalPending} ({((totalPending / totalProcessed) * 100).toFixed(1)}%)</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div 
                 className="bg-yellow-500 h-2 rounded-full" 
                 style={{ width: `${(totalPending / totalProcessed) * 100}%` }}

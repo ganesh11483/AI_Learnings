@@ -101,7 +101,6 @@ async def list_patients(
 
 @router.get("/disease-codes")
 async def get_disease_codes(
-    current_user: UserModel = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     """Get all disease codes for dropdown."""

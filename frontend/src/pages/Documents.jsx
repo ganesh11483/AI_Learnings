@@ -134,14 +134,14 @@ export default function Documents() {
     <div className="space-y-6">
       {/* Upload Section */}
       <Card>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Upload Document</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upload Document</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Patient *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Patient *</label>
             <select
               value={selectedPatient}
               onChange={(e) => setSelectedPatient(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
               <option value="">Select Patient</option>
               {patients?.map((patient) => (
@@ -153,11 +153,11 @@ export default function Documents() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Document Type</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Document Type</label>
             <select
               value={documentType}
               onChange={(e) => setDocumentType(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             >
               <option value="clinical_note">Clinical Note</option>
               <option value="discharge_summary">Discharge Summary</option>
@@ -169,13 +169,13 @@ export default function Documents() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">File or use drag-and-drop below</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">File or use drag-and-drop below</label>
             <input
               ref={fileInputRef}
               type="file"
               onChange={handleFileSelect}
               accept=".pdf,.txt,.docx"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
           </div>
         </div>
@@ -189,26 +189,26 @@ export default function Documents() {
           onClick={handleClick}
           className={`relative border-2 border-dashed rounded-lg p-8 transition-all cursor-pointer ${
             dragActive
-              ? 'border-primary-500 bg-primary-50'
-              : 'border-gray-300 hover:border-primary-400 bg-gray-50 hover:bg-primary-50'
+              ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+              : 'border-gray-300 dark:border-gray-600 hover:border-primary-400 bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20'
           }`}
         >
           <div className="text-center">
             {file ? (
               <>
                 <File className="w-12 h-12 text-primary-500 mx-auto mb-3" />
-                <p className="text-sm font-medium text-gray-900">{file.name}</p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-sm font-medium text-gray-900 dark:text-white">{file.name}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </>
             ) : (
               <>
-                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-sm font-medium text-gray-900">
+                <Upload className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-3" />
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
                   Drag and drop your file here, or click to select
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   Supported formats: PDF, TXT, DOCX (Max 10MB)
                 </p>
               </>
@@ -218,13 +218,13 @@ export default function Documents() {
 
         <div className="mt-4 space-y-3">
           {uploadError && (
-            <div className="rounded-md bg-red-50 p-3 text-red-700 border border-red-100">
+            <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-3 text-red-700 dark:text-red-300 border border-red-100 dark:border-red-700">
               <p className="text-sm font-medium">Upload failed</p>
               <p className="text-sm">{uploadError}</p>
             </div>
           )}
           {uploadSuccess && (
-            <div className="rounded-md bg-green-50 p-3 text-green-700 border border-green-100">
+            <div className="rounded-md bg-green-50 dark:bg-green-900/20 p-3 text-green-700 dark:text-green-300 border border-green-100 dark:border-green-700">
               <p className="text-sm font-medium">✓ Success</p>
               <p className="text-sm">{uploadSuccess}</p>
             </div>
@@ -245,25 +245,25 @@ export default function Documents() {
 
       {/* Documents List */}
       <Card>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Documents</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Documents</h3>
         <div className="space-y-3">
           {isDocsLoading ? (
-            <p className="text-gray-500 text-center py-8">Loading documents...</p>
+            <p className="text-gray-500 dark:text-gray-400 text-center py-8">Loading documents...</p>
           ) : isDocsError ? (
-            <div className="rounded-md bg-red-50 p-3 text-red-700 border border-red-100">
+            <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-3 text-red-700 dark:text-red-300 border border-red-100 dark:border-red-700">
               <p className="text-sm font-medium">Failed to load documents</p>
               <p className="text-sm">{docsError?.message || 'An error occurred while fetching documents.'}</p>
             </div>
           ) : documents?.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No documents found</p>
+            <p className="text-gray-500 dark:text-gray-400 text-center py-8">No documents found</p>
           ) : (
             documents?.map((doc) => (
-              <div key={doc.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-md hover:bg-gray-50">
+              <div key={doc.id} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">
                 <div className="flex items-center flex-1">
-                  <FileText className="w-5 h-5 text-gray-400 mr-3" />
+                  <FileText className="w-5 h-5 text-gray-400 dark:text-gray-500 mr-3" />
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{doc.filename}</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{doc.filename}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       {doc.document_type} • {new Date(doc.created_at).toLocaleDateString()}
                     </p>
                   </div>
@@ -279,7 +279,7 @@ export default function Documents() {
                     {doc.status === 'failed' && (
                       <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
                     )}
-                    <span className="text-sm text-gray-600 capitalize">{doc.status}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-300 capitalize">{doc.status}</span>
                   </div>
                   <div className="flex gap-2">
                     {doc.status === 'failed' && (
@@ -308,50 +308,50 @@ export default function Documents() {
 
       {/* Document Viewer Modal */}
       {viewingDocument && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50">
           <Card className="w-full max-w-3xl max-h-[80vh] overflow-hidden flex flex-col">
             <div className="flex justify-between items-center mb-4">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">{viewingDocument.filename}</h3>
-                <p className="text-xs text-gray-500 mt-1">
-                  Status: <span className="capitalize font-medium text-gray-700">{viewingDocument.status}</span>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{viewingDocument.filename}</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Status: <span className="capitalize font-medium text-gray-700 dark:text-gray-300">{viewingDocument.status}</span>
                 </p>
               </div>
               <button
                 onClick={() => setViewingDocument(null)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-auto bg-gray-50 p-4 rounded border border-gray-200">
+            <div className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-800 p-4 rounded border border-gray-200 dark:border-gray-700">
               {viewingDocument.status === 'processing' ? (
                 <div className="flex items-center justify-center h-32">
                   <div className="text-center">
                     <Clock className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                    <p className="text-gray-600">Document is being processed...</p>
+                    <p className="text-gray-600 dark:text-gray-300">Document is being processed...</p>
                   </div>
                 </div>
               ) : viewingDocument.status === 'failed' ? (
                 <div className="flex items-center justify-center h-32">
                   <div className="text-center">
                     <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                    <p className="text-gray-600">Failed to process document</p>
+                    <p className="text-gray-600 dark:text-gray-300">Failed to process document</p>
                   </div>
                 </div>
               ) : viewingDocument.content_text ? (
                 <div className="text-content">
-                  <pre className="whitespace-pre-wrap break-words text-sm font-mono text-gray-800 bg-white p-3 rounded border border-gray-200">
+                  <pre className="whitespace-pre-wrap break-words text-sm font-mono text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 p-3 rounded border border-gray-200 dark:border-gray-700">
                     {viewingDocument.content_text}
                   </pre>
                 </div>
               ) : (
-                <p className="text-gray-500 text-center py-8">No content available</p>
+                <p className="text-gray-500 dark:text-gray-400 text-center py-8">No content available</p>
               )}
             </div>
 
-            <div className="mt-4 pt-4 border-t border-gray-200 flex justify-between">
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between">
               {viewingDocument.status === 'failed' && (
                 <button
                   onClick={() => {
@@ -367,7 +367,7 @@ export default function Documents() {
               )}
               <button
                 onClick={() => setViewingDocument(null)}
-                className="ml-auto bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition-colors"
+                className="ml-auto bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
               >
                 Close
               </button>

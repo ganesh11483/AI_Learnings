@@ -48,31 +48,31 @@ export default function Audit() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-semibold text-gray-900">Audit Logs</h2>
-        <p className="text-gray-600 mt-1">Track all system activities for compliance and security</p>
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Audit Logs</h2>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Track all system activities for compliance and security</p>
       </div>
 
       <Card>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
           <div className="flex items-center space-x-2">
-            <Shield className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-600">HIPAA Compliant</span>
+            <Shield className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">HIPAA Compliant</span>
           </div>
         </div>
 
         <div className="space-y-3">
           {auditLogs.map((log) => (
-            <div key={log.id} className="p-4 border border-gray-200 rounded-md hover:bg-gray-50">
+            <div key={log.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">
               <div className="flex items-start justify-between">
                 <div className="flex items-start">
                   <Activity className="w-5 h-5 text-primary-500 mr-3 mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{log.action}</p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{log.action}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       User: {log.user} • Entity: {log.entity}
                     </p>
-                    <div className="flex items-center mt-2 text-xs text-gray-400">
+                    <div className="flex items-center mt-2 text-xs text-gray-400 dark:text-gray-500">
                       <Clock className="w-3 h-3 mr-1" />
                       {log.timestamp} • IP: {log.ip}
                     </div>
@@ -85,19 +85,19 @@ export default function Audit() {
       </Card>
 
       <Card>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Compliance Summary</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Compliance Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 bg-green-50 rounded-md">
-            <p className="text-2xl font-bold text-green-600">100%</p>
-            <p className="text-sm text-green-700">Audit Trail Coverage</p>
+          <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-md">
+            <p className="text-2xl font-bold text-green-600 dark:text-green-400">100%</p>
+            <p className="text-sm text-green-700 dark:text-green-300">Audit Trail Coverage</p>
           </div>
-          <div className="p-4 bg-blue-50 rounded-md">
-            <p className="text-2xl font-bold text-blue-600">5,234</p>
-            <p className="text-sm text-blue-700">Total Log Entries</p>
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-md">
+            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">5,234</p>
+            <p className="text-sm text-blue-700 dark:text-blue-300">Total Log Entries</p>
           </div>
-          <div className="p-4 bg-purple-50 rounded-md">
-            <p className="text-2xl font-bold text-purple-600">0</p>
-            <p className="text-sm text-purple-700">Security Incidents</p>
+          <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-md">
+            <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">0</p>
+            <p className="text-sm text-purple-700 dark:text-purple-300">Security Incidents</p>
           </div>
         </div>
       </Card>
