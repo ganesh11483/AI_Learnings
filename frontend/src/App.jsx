@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './hooks/useAuth'
+import { ThemeProvider } from './contexts/ThemeContext'
 import Layout from './components/Layout'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -31,24 +32,26 @@ function ProtectedRoute({ children }) {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-        <Route index element={<Navigate to="/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="documents" element={<Documents />} />
-        <Route path="claims" element={<Claims />} />
-        <Route path="claims/:id" element={<ClaimDetails />} />
-        <Route path="patients" element={<Patients />} />
-        <Route path="audit" element={<Audit />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="metrics/claims-processing" element={<ClaimsProcessingDashboard />} />
-        <Route path="metrics/ai-automation" element={<AIAutomationDashboard />} />
-        <Route path="metrics/revenue-financial" element={<RevenueFinancialDashboard />} />
-        <Route path="metrics/compliance-audit" element={<ComplianceAuditDashboard />} />
-        <Route path="metrics/operational-efficiency" element={<OperationalEfficiencyDashboard />} />
-      </Route>
-    </Routes>
+    <ThemeProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="documents" element={<Documents />} />
+          <Route path="claims" element={<Claims />} />
+          <Route path="claims/:id" element={<ClaimDetails />} />
+          <Route path="patients" element={<Patients />} />
+          <Route path="audit" element={<Audit />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="metrics/claims-processing" element={<ClaimsProcessingDashboard />} />
+          <Route path="metrics/ai-automation" element={<AIAutomationDashboard />} />
+          <Route path="metrics/revenue-financial" element={<RevenueFinancialDashboard />} />
+          <Route path="metrics/compliance-audit" element={<ComplianceAuditDashboard />} />
+          <Route path="metrics/operational-efficiency" element={<OperationalEfficiencyDashboard />} />
+        </Route>
+      </Routes>
+    </ThemeProvider>
   )
 }
 

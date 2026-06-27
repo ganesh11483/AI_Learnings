@@ -182,11 +182,16 @@ class MetricsService:
         denied_value = sum([c.total_amount or 0 for c in claims if c.status == ClaimStatus.DENIED])
         pending_value = sum([c.total_amount or 0 for c in claims if c.status in [ClaimStatus.SUBMITTED, ClaimStatus.PROCESSING]])
         
-        total_revenue = paid_value
+        revenue_processed = submitted_value  # Total revenue from processed claims
         net_revenue = paid_value - denied_value
-        collection_rate = (paid_value / submitted_value * 100) if submitted_value > 0 else 0.0
-        denial_rate = (denied_value / submitted_value * 100) if submitted_value > 0 else 0.0
+        recovery_rate = (paid_value / submitted_value * 100) if submitted_value > 0 else 0.0
+        denial_loss_percentage = (denied_value / submitted_value * 100) if submitted_value > 0 else 0.0
         avg_claim_value = submitted_value / len(claims) if claims else 0.0
+        
+        # Calculate payment cycle time (average days from submission to payment)
+        paid_claims = [c for c in claims if c.status == ClaimStatus.PAID and c.submitted_at and c.paid_at]
+        payment_cycle_times = [(c.paid_at - c.submitted_at).days for c in paid_claims if (c.paid_at - c.submitted_at).days > 0]
+        payment_cycle_time_days = sum(payment_cycle_times) / len(payment_cycle_times) if payment_cycle_times else 0.0
         
         # Revenue by payer
         revenue_by_payer = {}
@@ -216,15 +221,16 @@ class MetricsService:
         
         metrics = RevenueFinancialMetrics(
             date=date,
-            total_revenue=round(total_revenue, 2),
+            revenue_processed=round(revenue_processed, 2),
             claims_submitted_value=round(submitted_value, 2),
             claims_paid_value=round(paid_value, 2),
             claims_denied_value=round(denied_value, 2),
             pending_claims_value=round(pending_value, 2),
             net_revenue=round(net_revenue, 2),
-            collection_rate=round(collection_rate, 2),
-            denial_rate=round(denial_rate, 2),
+            recovery_rate=round(recovery_rate, 2),
+            denial_loss_percentage=round(denial_loss_percentage, 2),
             average_claim_value=round(avg_claim_value, 2),
+            payment_cycle_time_days=round(payment_cycle_time_days, 2),
             revenue_by_payer=revenue_by_payer,
             revenue_by_code=revenue_by_code
         )

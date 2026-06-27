@@ -1,10 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { patientAPI } from '../services/api'
 import { Users, Plus, Search, Edit, Calendar, Mail, Phone, MapPin } from 'lucide-react'
 import Card from '../components/Card'
 
 export default function Patients() {
+  const navigate = useNavigate()
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const queryClient = useQueryClient()
@@ -18,6 +20,7 @@ export default function Patients() {
     email: '',
     phone: '',
     address: '',
+    disease_code: '',
   })
 
   const { data: patients, isLoading, error } = useQuery({
@@ -39,6 +42,7 @@ export default function Patients() {
         email: '',
         phone: '',
         address: '',
+        disease_code: '',
       })
     },
   })
@@ -64,8 +68,8 @@ export default function Patients() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900">Patients</h2>
-          <p className="text-gray-600 mt-1">Manage patient records</p>
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Patients</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Manage patient records</p>
         </div>
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
@@ -79,13 +83,13 @@ export default function Patients() {
       {/* Search */}
       <Card>
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
           <input
             type="text"
             placeholder="Search patients by name or ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
       </Card>
@@ -93,66 +97,66 @@ export default function Patients() {
       {/* Create Patient Form */}
       {showCreateForm && (
         <Card>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Add New Patient</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Add New Patient</h3>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Patient ID</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Patient ID</label>
               <input
                 type="text"
                 name="patient_id"
                 value={formData.patient_id}
                 onChange={handleInputChange}
                 placeholder="PAT-XXXXX"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">First Name</label>
               <input
                 type="text"
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleInputChange}
                 placeholder="John"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Last Name</label>
               <input
                 type="text"
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleInputChange}
                 placeholder="Doe"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date of Birth</label>
               <input
                 type="date"
                 name="date_of_birth"
                 value={formData.date_of_birth}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Gender</label>
               <select 
                 name="gender"
                 value={formData.gender}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
                 required
               >
                 <option value="">Select Gender</option>
@@ -163,38 +167,50 @@ export default function Patients() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="john.doe@example.com"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone</label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
                 placeholder="(555) 123-4567"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Address</label>
               <input
                 type="text"
                 name="address"
                 value={formData.address}
                 onChange={handleInputChange}
                 placeholder="123 Main St, City, State 12345"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Disease Code</label>
+              <input
+                type="text"
+                name="disease_code"
+                value={formData.disease_code}
+                onChange={handleInputChange}
+                placeholder="ICD-10 Code (e.g., J45.0)"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
 
@@ -202,7 +218,7 @@ export default function Patients() {
               <button
                 type="button"
                 onClick={() => setShowCreateForm(false)}
-                className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-50 transition-colors"
+                className="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 px-4 py-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
               >
                 Cancel
               </button>
@@ -221,7 +237,7 @@ export default function Patients() {
       {/* Patients Grid */}
       {filteredPatients?.length === 0 ? (
         <Card>
-          <p className="text-gray-500 text-center py-8">No patients found. Create your first patient to get started.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8">No patients found. Create your first patient to get started.</p>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -231,50 +247,61 @@ export default function Patients() {
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                <button className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition-colors">
                   <Edit className="w-4 h-4" />
                 </button>
               </div>
               
-              <h4 className="text-base font-semibold text-gray-900 mb-1">
+              <h4 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
                 {patient.first_name} {patient.last_name}
               </h4>
-              <p className="text-xs text-gray-500 mb-3">ID: {patient.patient_id}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">ID: {patient.patient_id}</p>
+
+              {patient.disease_code && (
+                <div className="mb-3">
+                  <span className="inline-block px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded">
+                    Code: {patient.disease_code}
+                  </span>
+                </div>
+              )}
 
               <div className="space-y-2 text-sm">
-                <div className="flex items-center text-gray-600">
-                  <Calendar className="w-4 h-4 mr-2 text-gray-400" />
+                <div className="flex items-center text-gray-600 dark:text-gray-300">
+                  <Calendar className="w-4 h-4 mr-2 text-gray-400 dark:text-gray-500" />
                   <span>{new Date(patient.date_of_birth).toLocaleDateString()}</span>
                 </div>
                 {patient.gender && (
-                  <div className="flex items-center text-gray-600">
-                    <span className="inline-block w-4 h-4 mr-2 px-1.5 py-0.5 rounded-full bg-gray-100 text-xs font-medium">
+                  <div className="flex items-center text-gray-600 dark:text-gray-300">
+                    <span className="inline-block w-4 h-4 mr-2 px-1.5 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-xs font-medium">
                       {patient.gender.charAt(0).toUpperCase()}
                     </span>
                     <span className="capitalize">{patient.gender}</span>
                   </div>
                 )}
                 {patient.email && (
-                  <div className="flex items-center text-gray-600">
-                    <Mail className="w-4 h-4 mr-2 text-gray-400" />
+                  <div className="flex items-center text-gray-600 dark:text-gray-300">
+                    <Mail className="w-4 h-4 mr-2 text-gray-400 dark:text-gray-500" />
                     <span className="truncate">{patient.email}</span>
                   </div>
                 )}
                 {patient.phone && (
-                  <div className="flex items-center text-gray-600">
-                    <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                  <div className="flex items-center text-gray-600 dark:text-gray-300">
+                    <Phone className="w-4 h-4 mr-2 text-gray-400 dark:text-gray-500" />
                     <span>{patient.phone}</span>
                   </div>
                 )}
                 {patient.address && (
-                  <div className="flex items-start text-gray-600">
-                    <MapPin className="w-4 h-4 mr-2 text-gray-400 mt-0.5" />
+                  <div className="flex items-start text-gray-600 dark:text-gray-300">
+                    <MapPin className="w-4 h-4 mr-2 text-gray-400 dark:text-gray-500 mt-0.5" />
                     <span className="text-xs line-clamp-2">{patient.address}</span>
                   </div>
                 )}
               </div>
 
-              <button className="w-full mt-4 py-2 text-sm font-medium text-primary-600 hover:bg-primary-50 rounded transition-colors">
+              <button 
+                onClick={() => navigate(`/claims?patient_id=${patient.id}`)}
+                className="w-full mt-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors"
+              >
                 View Patient Records
               </button>
             </Card>

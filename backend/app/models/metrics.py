@@ -54,15 +54,16 @@ class RevenueFinancialMetrics(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     date = Column(DateTime(timezone=True), nullable=False)
-    total_revenue = Column(Float, default=0.0)
+    revenue_processed = Column(Float, default=0.0)  # Total revenue from processed claims
     claims_submitted_value = Column(Float, default=0.0)
     claims_paid_value = Column(Float, default=0.0)
     claims_denied_value = Column(Float, default=0.0)
     pending_claims_value = Column(Float, default=0.0)
     net_revenue = Column(Float, default=0.0)
-    collection_rate = Column(Float, default=0.0)
- denial_rate = Column(Float, default=0.0)
+    recovery_rate = Column(Float, default=0.0)  # Renamed from collection_rate
+ denial_loss_percentage = Column(Float, default=0.0)
     average_claim_value = Column(Float, default=0.0)
+    payment_cycle_time_days = Column(Float, default=0.0)  # NEW: Average days from submission to payment
     revenue_by_payer = Column(JSON)  # {"payer_name": {"submitted": 5000, "paid": 4500, "denied": 500}}
     revenue_by_code = Column(JSON)  # {"code": {"count": 10, "value": 5000}}
     created_at = Column(DateTime(timezone=True), server_default=func.now())

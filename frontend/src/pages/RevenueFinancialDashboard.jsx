@@ -30,20 +30,23 @@ export default function RevenueFinancialDashboard() {
   const history = metrics?.history || []
 
   // Calculate totals from history
-  const totalRevenue = history.reduce((sum, m) => sum + (m.total_revenue || 0), 0)
+  const totalRevenueProcessed = history.reduce((sum, m) => sum + (m.revenue_processed || 0), 0)
   const totalSubmitted = history.reduce((sum, m) => sum + (m.claims_submitted_value || 0), 0)
   const totalPaid = history.reduce((sum, m) => sum + (m.claims_paid_value || 0), 0)
   const totalDenied = history.reduce((sum, m) => sum + (m.claims_denied_value || 0), 0)
   const totalPending = history.reduce((sum, m) => sum + (m.pending_claims_value || 0), 0)
   const netRevenue = history.reduce((sum, m) => sum + (m.net_revenue || 0), 0)
-  const avgCollectionRate = history.length > 0 
-    ? history.reduce((sum, m) => sum + (m.collection_rate || 0), 0) / history.length 
+  const avgRecoveryRate = history.length > 0 
+    ? history.reduce((sum, m) => sum + (m.recovery_rate || 0), 0) / history.length 
     : 0
-  const avgDenialRate = history.length > 0 
-    ? history.reduce((sum, m) => sum + (m.denial_rate || 0), 0) / history.length 
+  const avgDenialLossPercentage = history.length > 0 
+    ? history.reduce((sum, m) => sum + (m.denial_loss_percentage || 0), 0) / history.length 
     : 0
   const avgClaimValue = history.length > 0 
     ? history.reduce((sum, m) => sum + (m.average_claim_value || 0), 0) / history.length 
+    : 0
+  const avgPaymentCycleTime = history.length > 0
+    ? history.reduce((sum, m) => sum + (m.payment_cycle_time_days || 0), 0) / history.length
     : 0
 
   const revenueByPayer = latestMetrics?.revenue_by_payer || {}
@@ -58,12 +61,12 @@ export default function RevenueFinancialDashboard() {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Revenue</p>
-              <p className="text-3xl font-bold text-green-600 mt-2">${totalRevenue.toLocaleString()}</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Revenue Processed</p>
+              <p className="text-3xl font-bold text-green-600 mt-2">${totalRevenueProcessed.toLocaleString()}</p>
               <div className="flex items-center mt-2 text-sm">
                 <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
                 <span className="text-green-600">+12.5% from last month</span>
@@ -91,8 +94,8 @@ export default function RevenueFinancialDashboard() {
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Collection Rate</p>
-              <p className="text-3xl font-bold text-purple-600 mt-2">{avgCollectionRate.toFixed(1)}%</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Recovery Rate</p>
+              <p className="text-3xl font-bold text-purple-600 mt-2">{avgRecoveryRate.toFixed(1)}%</p>
               <div className="flex items-center mt-2 text-sm">
                 <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
                 <span className="text-green-600">+3.2% improvement</span>
@@ -107,15 +110,28 @@ export default function RevenueFinancialDashboard() {
         <Card className="hover:shadow-lg transition-all">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Denial Rate</p>
-              <p className="text-3xl font-bold text-red-600 mt-2">{avgDenialRate.toFixed(1)}%</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Denial Loss %</p>
+              <p className="text-3xl font-bold text-red-600 mt-2">{avgDenialLossPercentage.toFixed(1)}%</p>
               <div className="flex items-center mt-2 text-sm">
-                <TrendingDown className="w-4 h-4 text-green-500 mr-1" />
-                <span className="text-green-600">-1.8% improvement</span>
+                <TrendingDown className="w-4 h-4 text-red-500 mr-1" />
+                <span className="text-red-600">-1.5% improvement</span>
               </div>
             </div>
             <div className="bg-red-500 p-3 rounded-lg">
               <AlertCircle className="w-6 h-6 text-white" />
+            </div>
+          </div>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-all">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Payment Cycle Time</p>
+              <p className="text-3xl font-bold text-orange-600 mt-2">{avgPaymentCycleTime.toFixed(1)} days</p>
+              <p className="text-sm text-orange-600 mt-1">Avg. submission to payment</p>
+            </div>
+            <div className="bg-orange-500 p-3 rounded-lg">
+              <CreditCard className="w-6 h-6 text-white" />
             </div>
           </div>
         </Card>
