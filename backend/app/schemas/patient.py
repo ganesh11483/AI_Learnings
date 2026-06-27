@@ -12,6 +12,7 @@ class PatientBase(BaseModel):
     phone: Optional[str] = None
     email: Optional[str] = None
     address: Optional[str] = None
+    disease_code: Optional[str] = None
 
 
 class PatientCreate(PatientBase):
@@ -25,6 +26,7 @@ class PatientUpdate(BaseModel):
     phone: Optional[str] = None
     email: Optional[str] = None
     address: Optional[str] = None
+    disease_code: Optional[str] = None
 
 
 class PatientInDB(PatientBase):

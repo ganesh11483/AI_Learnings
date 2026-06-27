@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.schemas.patient import PatientCreate, PatientUpdate, Patient
 from app.models.patient import Patient as PatientModel
+from app.models.disease_code import DiseaseCode
 from app.core.deps import get_current_active_user
 from app.models.user import User as UserModel
 
@@ -96,3 +97,21 @@ async def list_patients(
     """List all patients with pagination."""
     patients = db.query(PatientModel).offset(skip).limit(limit).all()
     return patients
+
+
+@router.get("/disease-codes")
+async def get_disease_codes(
+    current_user: UserModel = Depends(get_current_active_user),
+    db: Session = Depends(get_db)
+):
+    """Get all disease codes for dropdown."""
+    disease_codes = db.query(DiseaseCode).order_by(DiseaseCode.code).all()
+    return [
+        {
+            "id": dc.id,
+            "code": dc.code,
+            "description": dc.description,
+            "category": dc.category
+        }
+        for dc in disease_codes
+    ]

@@ -44,6 +44,7 @@ export const patientAPI = {
   getByExternalId: (id) => api.get(`/patients/external/${id}`),
   update: (id, data) => api.put(`/patients/${id}`, data),
   list: (params) => api.get('/patients/', { params }),
+  getDiseaseCodes: () => api.get('/patients/disease-codes'),
 }
 
 export const documentAPI = {

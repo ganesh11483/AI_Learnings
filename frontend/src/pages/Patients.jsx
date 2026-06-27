@@ -28,6 +28,11 @@ export default function Patients() {
     queryFn: () => patientAPI.list().then(res => res.data),
   })
 
+  const { data: diseaseCodes } = useQuery({
+    queryKey: ['disease-codes'],
+    queryFn: () => patientAPI.getDiseaseCodes().then(res => res.data),
+  })
+
   const createMutation = useMutation({
     mutationFn: (data) => patientAPI.create(data),
     onSuccess: () => {
@@ -204,14 +209,19 @@ export default function Patients() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Disease Code</label>
-              <input
-                type="text"
+              <select
                 name="disease_code"
                 value={formData.disease_code}
                 onChange={handleInputChange}
-                placeholder="ICD-10 Code (e.g., J45.0)"
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
+              >
+                <option value="">Select Disease Code</option>
+                {diseaseCodes?.map((dc) => (
+                  <option key={dc.id} value={dc.code}>
+                    {dc.code} - {dc.description}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="md:col-span-2 mt-4 flex justify-end space-x-3">

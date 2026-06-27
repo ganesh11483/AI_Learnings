@@ -61,7 +61,7 @@ class RevenueFinancialMetrics(Base):
     pending_claims_value = Column(Float, default=0.0)
     net_revenue = Column(Float, default=0.0)
     recovery_rate = Column(Float, default=0.0)  # Renamed from collection_rate
- denial_loss_percentage = Column(Float, default=0.0)
+    denial_loss_percentage = Column(Float, default=0.0)
     average_claim_value = Column(Float, default=0.0)
     payment_cycle_time_days = Column(Float, default=0.0)  # NEW: Average days from submission to payment
     revenue_by_payer = Column(JSON)  # {"payer_name": {"submitted": 5000, "paid": 4500, "denied": 500}}
