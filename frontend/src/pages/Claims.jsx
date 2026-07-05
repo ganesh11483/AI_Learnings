@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { claimAPI, patientAPI } from '../services/api'
@@ -79,7 +79,23 @@ export default function Claims() {
   const [createError, setCreateError] = useState('')
   const [createSuccess, setCreateSuccess] = useState('')
   const [actionMessage, setActionMessage] = useState({ type: '', text: '' })
+  const [patientSearch, setPatientSearch] = useState('')
+  const [showPatientDropdown, setShowPatientDropdown] = useState(false)
+  const patientDropdownRef = useRef(null)
   const queryClient = useQueryClient()
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (patientDropdownRef.current && !patientDropdownRef.current.contains(event.target)) {
+        setShowPatientDropdown(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   // Generate claim number format: CLM-YYYYMM-XXXXX
   const generateClaimNumber = useMemo(() => {
@@ -94,6 +110,19 @@ export default function Claims() {
     queryKey: ['patients'],
     queryFn: () => patientAPI.list().then(res => res.data),
   })
+
+  const filteredPatients = useMemo(() => {
+    if (!patientSearch.trim()) return patients || []
+    const searchLower = patientSearch.toLowerCase()
+    return (patients || []).filter(patient =>
+      `${patient.first_name} ${patient.last_name} ${patient.patient_id || ''}`.toLowerCase().includes(searchLower)
+    )
+  }, [patients, patientSearch])
+
+  const selectedPatientData = useMemo(() => {
+    if (!selectedPatient) return null
+    return patients?.find(p => p.id === selectedPatient)
+  }, [selectedPatient, patients])
 
   const { data: claims } = useQuery({
     queryKey: ['claims', selectedPatient],
@@ -198,6 +227,18 @@ export default function Claims() {
     setInsuranceProvider('')
     setPolicyNumber('')
     setCreateError('')
+  }
+
+  const handlePatientSelect = (patientId) => {
+    setSelectedPatient(patientId)
+    setPatientSearch('')
+    setShowPatientDropdown(false)
+  }
+
+  const handleClearPatientFilter = () => {
+    setSelectedPatient('')
+    setPatientSearch('')
+    setShowPatientDropdown(false)
   }
 
   return (
@@ -334,18 +375,55 @@ export default function Claims() {
       <Card>
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Claims</h3>
-          <select
-            value={selectedPatient}
-            onChange={(e) => setSelectedPatient(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-          >
-            <option value="">All Patients</option>
-            {patients?.map((patient) => (
-              <option key={patient.id} value={patient.id}>
-                {patient.first_name} {patient.last_name}
-              </option>
-            ))}
-          </select>
+          <div className="relative" ref={patientDropdownRef}>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder={selectedPatientData ? `${selectedPatientData.first_name} ${selectedPatientData.last_name}` : "Search patients..."}
+                value={patientSearch}
+                onChange={(e) => {
+                  setPatientSearch(e.target.value)
+                  setShowPatientDropdown(true)
+                }}
+                onFocus={() => setShowPatientDropdown(true)}
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 w-64"
+              />
+              {selectedPatient && (
+                <button
+                  onClick={handleClearPatientFilter}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                  title="Clear filter"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+            {showPatientDropdown && (
+              <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                <div
+                  onClick={() => handlePatientSelect('')}
+                  className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-900 dark:text-white"
+                >
+                  All Patients
+                </div>
+                {filteredPatients.length > 0 ? (
+                  filteredPatients.map((patient) => (
+                    <div
+                      key={patient.id}
+                      onClick={() => handlePatientSelect(patient.id)}
+                      className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-900 dark:text-white"
+                    >
+                      {patient.first_name} {patient.last_name} {patient.patient_id && `(${patient.patient_id})`}
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-3 py-2 text-gray-500 dark:text-gray-400">
+                    No patients found
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {actionMessage.text && (

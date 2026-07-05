@@ -85,7 +85,10 @@ export default function ClaimDetails() {
     onSuccess: () => {
       setActionError('')
       setActionSuccess('Claim approved successfully')
-      setTimeout(() => setActionSuccess(''), 5000)
+      setTimeout(() => {
+        setActionSuccess('')
+        navigate('/claims')
+      }, 1500)
       queryClient.invalidateQueries(['claims'])
       queryClient.invalidateQueries(['claim', id])
     },
@@ -101,7 +104,10 @@ export default function ClaimDetails() {
     onSuccess: () => {
       setActionError('')
       setActionSuccess('Claim rejected successfully')
-      setTimeout(() => setActionSuccess(''), 5000)
+      setTimeout(() => {
+        setActionSuccess('')
+        navigate('/claims')
+      }, 1500)
       queryClient.invalidateQueries(['claims'])
       queryClient.invalidateQueries(['claim', id])
     },
