@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.db.database import get_db
-from app.schemas.claim import ClaimCreate, ClaimUpdate, Claim, ClaimItemCreate
+from app.schemas.claim import ClaimCreate, ClaimUpdate, Claim, ClaimItemCreate, ClaimRejectRequest, ClaimApproveRequest
 from app.services.claim_service import (
     create_claim, add_claim_item, validate_claim, submit_claim,
     get_claim, get_claims_by_patient, update_claim,
@@ -174,13 +174,13 @@ async def reject_code_endpoint(
 @router.post("/{claim_id}/approve", response_model=Claim, status_code=status.HTTP_200_OK)
 async def approve_claim_endpoint(
     claim_id: int,
-    notes: str = None,
+    approve_data: ClaimApproveRequest,
     current_user: UserModel = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     """Approve a submitted claim."""
     try:
-        return approve_claim(db, claim_id, current_user.id, notes)
+        return approve_claim(db, claim_id, current_user.id, approve_data.notes)
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -191,14 +191,13 @@ async def approve_claim_endpoint(
 @router.post("/{claim_id}/reject", response_model=Claim, status_code=status.HTTP_200_OK)
 async def reject_claim_endpoint(
     claim_id: int,
-    rejection_reason: str,
-    notes: str = None,
+    reject_data: ClaimRejectRequest,
     current_user: UserModel = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
     """Reject a submitted claim."""
     try:
-        return reject_claim(db, claim_id, current_user.id, rejection_reason, notes)
+        return reject_claim(db, claim_id, current_user.id, reject_data.rejection_reason, reject_data.notes)
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

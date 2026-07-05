@@ -86,3 +86,12 @@ class ClaimInDB(ClaimBase):
 class Claim(ClaimInDB):
     claim_items: List[ClaimItem] = []
     validations: List[ClaimValidation] = []
+
+
+class ClaimRejectRequest(BaseModel):
+    rejection_reason: str
+    notes: Optional[str] = None
+
+
+class ClaimApproveRequest(BaseModel):
+    notes: Optional[str] = None
